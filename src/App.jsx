@@ -1,7 +1,8 @@
 import { Header } from './components/index';
 import {
   // MainPage, 
-  ProfilePage 
+  // ProfilePage,
+  Adv 
 } from './pages/index';
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <>
       <Header />
       {/* <MainPage /> */}
-      <ProfilePage/>
+      {/* <ProfilePage/> */}
+      <Adv />
     </>
   );
 }

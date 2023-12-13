@@ -71,6 +71,9 @@ a {
     margin: 0 auto;
   }
 
+  &__text {
+    width: 792px;
+  }
 }
 
 .title {
@@ -78,4 +81,27 @@ a {
   line-height: 70px;
   font-weight: 500;
   color: #000000;
+}
+
+.btn-hov01:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid #FFFFFF;
+}
+
+.btn-hov02:hover {
+  background-color: #0080C1;
+}
+
+.article__fill-img {    
+  &:hover::before {        
+      border-top: 2px solid #0080C1;
+      border-left: 2px solid #0080C1;        
+  }
+}
+
+.circle-active {
+  background-color: #FFFFFF;
+}
+.img-bar-mob__circle:active {
+  background-color: #FFFFFF;
 }
