@@ -1,11 +1,15 @@
 import { Header } from './components/index';
-import { MainPage } from './pages/index';
+import {
+  MainPage, 
+  ProfilePage 
+} from './pages/index';
 
 function App() {
   return (
     <>
       <Header />
-      <MainPage />
+      {/* <MainPage /> */}
+      <ProfilePage/>
     </>
   );
 }
