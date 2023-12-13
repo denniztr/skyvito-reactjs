@@ -1,6 +1,6 @@
 import { Header } from './components/index';
 import {
-  MainPage, 
+  // MainPage, 
   ProfilePage 
 } from './pages/index';
 
