@@ -1,0 +1,21 @@
+.main {
+
+  &__container {
+    max-width: 1178px;
+    margin: 0 auto;
+    padding: 52px 10px 37px;
+  }
+
+  &__h2 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 42px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 30px;
+  }
+
+  &__content {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

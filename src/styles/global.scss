@@ -34,3 +34,19 @@ button,
 a {
   font-family: 'Roboto', sans-serif;
 }
+
+.wrapper {
+  width: 100%;    
+  min-height: 100%;
+  overflow: hidden;
+  background-color: rgb(241, 241, 241);
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;        
+  margin: 0 auto;    
+  background-color: rgb(255, 255, 255);    
+}
