@@ -2,7 +2,8 @@ import { Header } from './components/index';
 import {
   // MainPage, 
   // ProfilePage,
-  Adv 
+  // Adv,
+  SellerProfilePage 
 } from './pages/index';
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
       <Header />
       {/* <MainPage /> */}
       {/* <ProfilePage/> */}
-      <Adv />
+      {/* <Adv /> */}
+      <SellerProfilePage/>
     </>
   );
 }
