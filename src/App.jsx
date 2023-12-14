@@ -1,19 +1,24 @@
-import { Header } from './components/index';
+import { Provider } from 'react-redux'
+import { store } from './store/index'
+
+import { Header } from './components/index'
 import {
-  // MainPage, 
+  MainPage, 
   // ProfilePage,
-  Adv 
-} from './pages/index';
+  // Adv,
+  // SellerProfilePage 
+} from './pages/index'
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Header />
-      {/* <MainPage /> */}
+      <MainPage />
       {/* <ProfilePage/> */}
-      <Adv />
-    </>
+      {/* <Adv /> */}
+      {/* <SellerProfilePage/> */}
+    </Provider>
   );
 }
 
-export default App;
+export default App
