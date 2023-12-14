@@ -1,9 +1,11 @@
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { AppRoutes } from './routes/routes'
 import { store } from './store/index'
 
 import { Header } from './components/index'
 import {
-  MainPage, 
+  // MainPage, 
   // ProfilePage,
   // Adv,
   // SellerProfilePage 
@@ -12,11 +14,10 @@ import {
 function App() {
   return (
     <Provider store={store}>
-      <Header />
-      <MainPage />
-      {/* <ProfilePage/> */}
-      {/* <Adv /> */}
-      {/* <SellerProfilePage/> */}
+      <BrowserRouter>
+        <Header />
+        <AppRoutes />
+      </BrowserRouter>
     </Provider>
   );
 }
