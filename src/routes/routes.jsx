@@ -3,13 +3,17 @@ import {
   MainPage,
   ProfilePage,
   Adv,
-  SellerProfilePage
+  SellerProfilePage,
+  Register,
+  Login
 } from '../pages/index'
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MainPage/>} path='/'/>
+      <Route element={<Register/>} path='/register' />
+      <Route element={<Login/>} path='/login' />
       <Route element={<ProfilePage/>} path='/profile' />
       <Route element={<Adv/>} path='/adv' />
       <Route element={<SellerProfilePage/>} path='/seller' />
