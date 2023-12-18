@@ -1,94 +1,68 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { userLogin, usePostRegMutation } from '../../store/index'
+import { userLogin, usePostRegMutation, usePostLoginMutation, setAccessToken } from '../../store/index'
 
 import SkyproLogoModal from '../../assets/icons/logo_modal.png'
 
 import './register.scss';
 
 export const Register = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
+  // const navigate = useNavigate()
 
-  const [postReg] = usePostRegMutation();
+  const [postReg] = usePostRegMutation()
+  // const [postLogin] = usePostLoginMutation()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
   const [name, setName] = useState('')
-  // const [surname, setSurname] = useState('')
-  // const [city, setCity] = useState('')
+  const [surname, setSurname] = useState('')
+  const [city, setCity] = useState('')
+  // const [number, setNumber] = useState('')
   const [error, setError] = useState('')
 
-  // const handleRegister = () => {
-  //   if (!email || !password) {
-  //     setError("Укажите email/пароль");
-  //     return;
-  //   }
-
-  //   if (password !== repeatPassword) {
-  //     setError("Пароли не совпадают");
-  //     return;
-  //   }
-
-  //   if (email.length < 3) {
-  //     setError("Введенный E-mail слишком короткий");
-  //     return;
-  //   }
-
-  //   if (password.length < 6) {
-  //     setError("Введенный пароль слишком короткий");
-  //      return;
-  //   }
-    
-  //   postReg({ email, password, name }).then((resp) => console.log(resp.status))
-
-  // }
-
-  const handleNewReg = async () => {
-    await postReg({
-      name: name,
-      email: email,
-      password: password,
-    })
-    .unwrap()
-    .then((response) => {
-      dispatch(userLogin({
-        email: response.email,
-        name: response.name,
-        id: response.id,
-      }))
-    })
-    .catch((error) => {
-      console.error(error.message)
-    })
-  }
-
-  const handleRegister = async () => {
-    if (!email) {
-      setError("Введите почту");
+  const handleRegister = () => {
+    if (!email || !password) {
+      setError("Укажите email/пароль");
       return;
     }
-    if (!name) {
-      setError("Введите логин");
-      return;
-    }
-    if (!password) {
-      setError("Введите пароль");
-      return;
-    }
-    if (!repeatPassword) {
-      setError("Повторите пароль");
-      return;
-    }
+
     if (password !== repeatPassword) {
       setError("Пароли не совпадают");
       return;
     }
 
-    handleNewReg();
-  };
+    if (email.length < 3) {
+      setError("Введенный E-mail слишком короткий");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Введенный пароль слишком короткий");
+       return;
+    }
+    
+    postReg({ email, password, name, surname, city }).then((res) => {
+      console.log(res)
+      // navigate('/login')
+      // dispatch(userLogin({user: res.data}))
+      // postLogin({ email, password }).then((res) => {
+      //   localStorage.setItem('refresh_token', res.data.refresh_token)
+      //   dispatch(setAccessToken(res.data.access_token))
+      //   navigate('/profile')
+      // })
+    })
+  }
+
+
+  const clear_ls = () => {
+    localStorage.removeItem('user')
+  }
+
+  // clear_ls()
 
   return (
     <div className="wrapper">
@@ -136,7 +110,7 @@ export const Register = () => {
               name="first-last"
               id="first-last"
               placeholder="Фамилия (необязательно)"
-              // onChange={(e) => setSurname(e.target.value)}
+              onChange={(e) => setSurname(e.target.value)}
             />
             <input
               className="modal__input city"
@@ -144,11 +118,11 @@ export const Register = () => {
               name="city"
               id="city"
               placeholder="Город (необязательно)"
-              // onChange={(e) => setCity(e.target.value)}
+              onChange={(e) => setCity(e.target.value)}
             />
             <p>{error}</p>
             <button className="modal__btn-signup-ent" id="SignUpEnter" onClick={handleRegister}>
-              <Link>Зарегистрироваться</Link>
+              <a>Зарегистрироваться</a>
             </button>
           </form>
         </div>

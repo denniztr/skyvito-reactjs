@@ -9,7 +9,7 @@ const advSlice = createSlice({
   reducers: {
     setAdv: (state, action) => {
       state.ads = action.payload
-      console.log(state.ads)
+      // console.log(state.ads)
     }
   }
 })

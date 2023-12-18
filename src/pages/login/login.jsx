@@ -1,12 +1,35 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { usePostLoginMutation, setAccessToken } from '../../store'
 
 import SkyproLogoModal from '../../assets/icons/logo_modal.png'
-
-
 
 import './login.scss';
 
 export const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const [postLogin] = usePostLoginMutation()
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Не заполнены данные для входа')
+    }
+    postLogin({email, password}).then((res) => {
+      dispatch(setAccessToken(res.data.access_token))
+      localStorage.setItem('refresh_token', res.data.refresh_token)
+      console.log('refresh token has got from postLogin: ' + localStorage.refresh_token)
+      navigate('/profile')
+    })
+  }
+
   return (
     <div className="wrapper">
       <div className="container-enter">
@@ -23,6 +46,7 @@ export const Login = () => {
               name="login"
               id="formlogin"
               placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="modal__input password"
@@ -30,9 +54,11 @@ export const Login = () => {
               name="password"
               id="formpassword"
               placeholder="Пароль"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="modal__btn-enter" id="btnEnter">
-              <a href="../index.html">Войти</a>
+            <p>{error}</p>
+            <button className="modal__btn-enter" id="btnEnter" onClick={handleLogin}>
+              <Link>Войти</Link>
             </button>
             <button className="modal__btn-signup" id="btnSignUp">
               <Link to="/register">Зарегистрироваться</Link>

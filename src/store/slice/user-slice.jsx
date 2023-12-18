@@ -2,22 +2,29 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: null,
+  initialState: {
+    user: null,
+    access_token: null,
+  },
   reducers: {
     userLogin: (state, action) => {
-      const payload = action.payload
-      
-      state.id = payload.id
-      state.email = payload.email 
+      state.user = action.payload
+      console.log(state.user)
+      localStorage.setItem('user', JSON.stringify(state.user.user))
+      // state.id = payload.id
+      // state.email = payload.email 
       // // state.password = payload.password
-      state.name = payload.name
+      // state.name = payload.name
       // state.surname = payload.surname
       // state.city = payload.city
-      console.log(payload);
+    },
+    setAccessToken: (state, action) => {
+      state.access_token = action.payload
+      console.log('access token: ' + state.access_token)
     }
   }
 })
 
-export const { userLogin } = userSlice.actions;
+export const { userLogin, setAccessToken } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,24 +1,23 @@
-import { Provider } from 'react-redux'
+import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { AppRoutes } from './routes/routes'
-import { store } from './store/index'
-
 import { Header } from './components/index'
-import {
-  // MainPage, 
-  // ProfilePage,
-  // Adv,
-  // SellerProfilePage 
-} from './pages/index'
+import { userLogin } from './store'
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    dispatch(userLogin({ user: user }))
+  }, [dispatch])
+
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <Header />
         <AppRoutes />
       </BrowserRouter>
-    </Provider>
   );
 }
 
