@@ -8,7 +8,7 @@ import './main-menu.scss'
 export const Menu = () => {
   return (
     <div className='main__menu menu'>
-      <a className='menu__logo-link' href="#" target='_blank'>
+      <a className='menu__logo-link' target='_blank'>
         <img className='menu__logo-img' src={SkyproLogo} alt="logo" />
       </a>
       <form className='menu__form' action="#">

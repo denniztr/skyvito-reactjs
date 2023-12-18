@@ -20,7 +20,6 @@ const userSlice = createSlice({
     },
     setAccessToken: (state, action) => {
       state.access_token = action.payload
-      console.log('access token: ' + state.access_token)
     }
   }
 })

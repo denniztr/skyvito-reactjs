@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { ContentCards, ProfileSetup, Menu } from '../../components/index'
@@ -9,16 +9,27 @@ import './profile-page.scss'
 
 export const ProfilePage = () => {
   const dispatch = useDispatch()
-  const { data, isLoading } = useGetUserQuery()
-  
-  useEffect(() => {
-    if (data) dispatch(userLogin({ user: data }))
-  }, [data, dispatch])
+
+  const [user, setUser] = useState(null)
+
+  const { data } = useGetUserQuery()
+  dispatch(userLogin({ user: data }))
 
   useEffect(() => {
-    const current_user = JSON.parse(localStorage.getItem('user'))
-    dispatch(userLogin({ user: current_user}))
-  }, [dispatch])
+    setUser(data)
+  }, [data])
+
+
+  // useEffect(() => {
+  //   if (data) dispatch(userLogin({ user: data }))
+  //   setUser(data)
+  // }, [data, dispatch])
+
+  // useEffect(() => {
+  //   const current_user = JSON.parse(localStorage.getItem('user'))
+  //   dispatch(userLogin({ user: current_user}))
+  //   setUser(current_user)
+  // }, [dispatch])
 
 
   return (
@@ -28,7 +39,7 @@ export const ProfilePage = () => {
         <div className='main__container'>
           <div className='main__center-block'>
             <Menu />
-            { isLoading ? <p>Загрузка</p> : <ProfileSetup/> }
+            { user ? <ProfileSetup user={user} /> : ''}
             <h3 className='main__title title'>Мои товары</h3>
           </div>
           <div className='main__content'>

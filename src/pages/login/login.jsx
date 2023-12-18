@@ -18,14 +18,14 @@ export const Login = () => {
 
   const [postLogin] = usePostLoginMutation()
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     if (!email || !password) {
       setError('Не заполнены данные для входа')
     }
+
     postLogin({email, password}).then((res) => {
       dispatch(setAccessToken(res.data.access_token))
       localStorage.setItem('refresh_token', res.data.refresh_token)
-      console.log('refresh token has got from postLogin: ' + localStorage.refresh_token)
       navigate('/profile')
     })
   }
