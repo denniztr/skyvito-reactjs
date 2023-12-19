@@ -74,6 +74,12 @@ export const adsApi = createApi({
         // },
       }),
     }),
+    getAllUsers: build.mutation({
+      query: () => ({
+        url: "/user/all",
+        method: 'GET',
+      })
+    })
   }),
 })
 
@@ -83,4 +89,5 @@ export const {
   usePostLoginMutation, 
   useGetUserMutation,
   useGetAddByIdMutation,
+  useGetAllUsersMutation,
 } = adsApi;

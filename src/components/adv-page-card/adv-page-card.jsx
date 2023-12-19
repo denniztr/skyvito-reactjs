@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setSelectedAdd } from '../../store'
 
@@ -7,7 +7,9 @@ import './adv-page-card.scss'
 
 export const AdvCard = ({ data }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id } = useParams()
+
   useEffect(() => {
     if (data) {
       const selected_ad = data.find((ad) => ad.id === Number(id))
@@ -17,6 +19,10 @@ export const AdvCard = ({ data }) => {
 
   const selected_ad = useSelector((state) => state.adv.selected_ad)
   
+  const handleClickUserProfile = () => {
+    navigate(`/seller/${selected_ad.user.id}`)
+  }
+
   return (
     <div className='artic__content article'>
       <div className='article__left'>
@@ -48,7 +54,7 @@ export const AdvCard = ({ data }) => {
           </div>
           <p className='article__price'>{selected_ad && selected_ad.price} ₽</p>
           <button className='article__btn btn-hov-02'>Показать телефон<span>{selected_ad && selected_ad.user.phone}</span></button>
-          <div className='article__author author'>
+          <div className='article__author author' onClick={handleClickUserProfile}>
             <div className='author__img'>
               <img src={selected_ad && selected_ad.user.avatar} alt="" />
             </div>
