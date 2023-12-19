@@ -1,14 +1,12 @@
-import { useSelector } from 'react-redux'
-
 import './profile-setup.scss'
 
 export const ProfileSetup = ({ user }) => {
-  // const user = useSelector((state) => state.user.user)
-  // console.log(user.user)
+
   return (
     <>
-    <p>{ user ? user.name : 'no user'}</p>
-      {/* <h2 className='main__h2'>Здравствуйте, {current_user.name}!</h2>
+    { user ? (
+      <>
+        <h2 className='main__h2'>Здравствуйте, {user.name}!</h2>
       <div className='main__profile profile'>
         <div className='profile__content'>
           <h3 className='profile__title title'>Настройки профиля</h3>
@@ -25,26 +23,30 @@ export const ProfileSetup = ({ user }) => {
               <form className='settings__form' action="#">
                 <div className='settings__div'>
                   <label htmlFor="fname">Имя</label>
-                  <input className='settings__f-name' id='settings-fname' name='fname' type="text" placeholder={current_user ? current_user.name : ''}/>
+                  <input className='settings__f-name' id='settings-fname' name='fname' type="text" placeholder={user ? user.name : ''}/>
                 </div>
                 <div className='settings__div'>
                   <label htmlFor="lname">Фамилия</label>
-                  <input className='settings__l-name' id='settings-lname' name='lname' type="text" placeholder={current_user ? current_user.surname : ''}/>
+                  <input className='settings__l-name' id='settings-lname' name='lname' type="text" placeholder={user ? user.surname : ''}/>
                 </div>
                 <div className='settings__div'>
                   <label htmlFor="city">Город</label>
-                  <input className='settings__city' id='settings-city' name='city' type="text" placeholder={current_user ?current_user.city : ''} />
+                  <input className='settings__city' id='settings-city' name='city' type="text" placeholder={user ?user.city : ''} />
                 </div>
                 <div className='settings__div'>
                   <label htmlFor="phone">Телефон</label>
-                  <input className='settings__phone' id='settings-phone' name='phone'  type="tel" placeholder={current_user ?current_user.phone : ''} />
+                  <input className='settings__phone' id='settings-phone' name='phone'  type="tel" placeholder={user ?user.phone : ''} />
                 </div>
                 <button className='settings__btn btn-hov02' id='settings-btn'>Сохранить</button>
               </form>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
+      </>
+    ) : (
+      <p>NO USER</p>
+    ) }
     </>
   )
 }

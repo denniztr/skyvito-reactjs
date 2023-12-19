@@ -4,10 +4,10 @@ export const adsApi = createApi({
   reducerPath: 'ads-api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8090/',
-    prepareHeaders: (headers, {getState}) => {
-      const token = getState().user.access_token
-      if (token) headers.set('Authorization', `Bearer ${token}`)
-    },
+    // prepareHeaders: (headers, {getState}) => {
+    //   const token = getState().user.access_token
+    //   if (token) headers.set('Authorization', `Bearer ${token}`)
+    // },
   }),
   endpoints: (build) => ({
     getAds: build.query({
@@ -42,10 +42,25 @@ export const adsApi = createApi({
         }
       }),
     }),
-    getUser: build.query({
-      query: () => 'user'
-    })
+    // getUser: build.mutation({
+    //   query: () => 'user',
+    //   method: 'GET',
+    // }),
+    getUser: build.mutation({
+      query: (body) => ({
+        url: "/user",
+        method: `GET`,
+        headers: {
+          Authorization: `Bearer ${body}`,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useGetAdsQuery, usePostRegMutation, usePostLoginMutation, useGetUserQuery } = adsApi;
+export const { 
+  useGetAdsQuery, 
+  usePostRegMutation, 
+  usePostLoginMutation, 
+  useGetUserMutation,
+} = adsApi;

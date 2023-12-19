@@ -16,18 +16,26 @@ export const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const [postLogin] = usePostLoginMutation()
+  const [login] = usePostLoginMutation()
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       setError('Не заполнены данные для входа')
     }
 
-    postLogin({email, password}).then((res) => {
+    const res = await login({ email, password })
+
+    if (res.data) {
       dispatch(setAccessToken(res.data.access_token))
       localStorage.setItem('refresh_token', res.data.refresh_token)
-      navigate('/profile')
-    })
+      navigate('/')
+    }
+
+    // postLogin({email, password}).then((res) => {
+    //   dispatch(setAccessToken(res.data.access_token))
+    //   localStorage.setItem('refresh_token', res.data.refresh_token)
+    //   navigate('/')
+    // })
   }
 
   return (

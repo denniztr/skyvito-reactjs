@@ -9,8 +9,7 @@ const userSlice = createSlice({
   reducers: {
     userLogin: (state, action) => {
       state.user = action.payload
-      console.log(state.user)
-      localStorage.setItem('user', JSON.stringify(state.user.user))
+      localStorage.setItem('user', JSON.stringify(state.user))
       // state.id = payload.id
       // state.email = payload.email 
       // // state.password = payload.password
@@ -20,6 +19,8 @@ const userSlice = createSlice({
     },
     setAccessToken: (state, action) => {
       state.access_token = action.payload
+      localStorage.setItem('access_token', state.access_token)
+      console.log(localStorage);
     }
   }
 })

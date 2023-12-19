@@ -1,15 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './header.scss'
 
-export const Header = () => {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const user = localStorage.getItem('user')
-    setUser(user)
-  }, [])
-
+export const Header = ({ user }) => {
   return (
     <header className='header'>
         { user ? (
