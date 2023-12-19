@@ -1,5 +1,9 @@
 import { useSelector } from 'react-redux'
-import { ContentCards, ProfileSetup, Menu } from '../../components/index'
+import { 
+ //  ContentCards, 
+  ProfileSetup, 
+  Menu 
+} from '../../components/index'
 
 import './profile-page.scss'
 

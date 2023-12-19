@@ -7,11 +7,7 @@ import { useGetAdsQuery, useGetAddByIdMutation } from '../../store'
 import './content-cards.scss'
 
 export const ContentCards = ({ data, isLoading }) => {
-  // const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  // const { data, isLoading } = useGetAdsQuery();
-  // if (data) dispatch(setAdv({data}))
 
   const [getAdv] = useGetAddByIdMutation()
 
