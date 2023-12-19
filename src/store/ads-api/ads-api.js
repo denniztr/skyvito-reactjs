@@ -4,10 +4,10 @@ export const adsApi = createApi({
   reducerPath: 'ads-api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8090/',
-    // prepareHeaders: (headers, {getState}) => {
-    //   const token = getState().user.access_token
-    //   if (token) headers.set('Authorization', `Bearer ${token}`)
-    // },
+    prepareHeaders: (headers, {getState}) => {
+      const token = getState().user.access_token
+      if (token) headers.set('Authorization', `Bearer ${token}`)
+    },
   }),
   endpoints: (build) => ({
     getAds: build.query({
@@ -42,17 +42,36 @@ export const adsApi = createApi({
         }
       }),
     }),
-    // getUser: build.mutation({
-    //   query: () => 'user',
-    //   method: 'GET',
+    getAddById: build.mutation({
+      query: (id) => ({
+        header: {
+          'content-type': 'application/json',
+        },
+        url: `ads/${id}`,
+        method: 'GET',
+      })
+    }),
+    // updateToken: build.mutation({
+    //   query: (body) => ({
+    //     headers: {
+    //       'content-type': 'application/json',
+    //       // Authorization: `Bearer ${body.access_token}`,
+    //     },
+    //     url: '/auth/login',
+    //     method: 'PUT',
+    //     body: JSON.stringify({
+    //       access_token: body.access_token,
+    //       refresh_token: body.refresh_token,
+    //     }),
+    //   })
     // }),
     getUser: build.mutation({
-      query: (body) => ({
+      query: () => ({
         url: "/user",
         method: `GET`,
-        headers: {
-          Authorization: `Bearer ${body}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${body}`,
+        // },
       }),
     }),
   }),
@@ -63,4 +82,5 @@ export const {
   usePostRegMutation, 
   usePostLoginMutation, 
   useGetUserMutation,
+  useGetAddByIdMutation,
 } = adsApi;

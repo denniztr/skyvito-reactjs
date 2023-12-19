@@ -1,23 +1,21 @@
-
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setSelectedAdd } from '../../store'
 
 import './adv-page-card.scss'
 
-export const AdvCard = () => {
+export const AdvCard = ({ data }) => {
+  const dispatch = useDispatch()
   const { id } = useParams()
-  const ads = useSelector((state) => state.adv.ads)
-  console.log(ads);
-  
-  const selected_ad = ads.data.find((ad) => ad.id === Number(id))
-  console.log(selected_ad)
+  useEffect(() => {
+    if (data) {
+      const selected_ad = data.find((ad) => ad.id === Number(id))
+      dispatch(setSelectedAdd(selected_ad))
+    }
+  }, [data, dispatch, id])
 
-
-  // useEffect(() => {
-  //   console.log(ads)
-  // }, [ads])
-  // const ads = useSelector((state) => state.ads.setAdv)
-  // const currentAd = ads.find((ad) => ad.id === Number(id))
+  const selected_ad = useSelector((state) => state.adv.selected_ad)
   
   return (
     <div className='artic__content article'>
@@ -42,24 +40,24 @@ export const AdvCard = () => {
       </div>
       <div className='article__right'>
         <div className='article__block'>
-          <h3 className='article__title title'>{selected_ad.title}</h3>
+          <h3 className='article__title title'>{selected_ad && selected_ad.title}</h3>
           <div className='article__info'>
-            <p className='article__date'>{selected_ad.created_on}</p>
-            <p className='article__city'>{selected_ad.user.city}</p>
+            <p className='article__date'>{selected_ad && selected_ad.created_on}</p>
+            <p className='article__city'>{selected_ad && selected_ad.user.city}</p>
             <a className='article__link' href="">23 отзыва</a>
           </div>
-          <p className='article__price'>{selected_ad.price} ₽</p>
-          <button className='article__btn btn-hov-02'>Показать телефон<span>{selected_ad.user.phone}</span></button>
+          <p className='article__price'>{selected_ad && selected_ad.price} ₽</p>
+          <button className='article__btn btn-hov-02'>Показать телефон<span>{selected_ad && selected_ad.user.phone}</span></button>
           <div className='article__author author'>
             <div className='author__img'>
-              <img src={selected_ad.user.avatar} alt="" />
+              <img src={selected_ad && selected_ad.user.avatar} alt="" />
             </div>
             <div className='author__cont'>
-              <p className='author__name'>{selected_ad.user.name}</p>
-              <p className='author__about'>{selected_ad.user.sells_from}</p>
+              <p className='author__name'>{selected_ad && selected_ad.user.name}</p>
+              <p className='author__about'>{selected_ad && selected_ad.user.sells_from}</p>
             </div>
           </div>
-          <p>{selected_ad.description}</p>
+          <p>{selected_ad && selected_ad.description}</p>
         </div>
       </div>
     </div>

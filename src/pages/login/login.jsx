@@ -30,12 +30,6 @@ export const Login = () => {
       localStorage.setItem('refresh_token', res.data.refresh_token)
       navigate('/')
     }
-
-    // postLogin({email, password}).then((res) => {
-    //   dispatch(setAccessToken(res.data.access_token))
-    //   localStorage.setItem('refresh_token', res.data.refresh_token)
-    //   navigate('/')
-    // })
   }
 
   return (

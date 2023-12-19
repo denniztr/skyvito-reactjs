@@ -10,6 +10,7 @@ const userSlice = createSlice({
     userLogin: (state, action) => {
       state.user = action.payload
       localStorage.setItem('user', JSON.stringify(state.user))
+      console.log(state.user)
       // state.id = payload.id
       // state.email = payload.email 
       // // state.password = payload.password

@@ -6,7 +6,6 @@ import './profile-page.scss'
 export const ProfilePage = () => {
 
   const user = useSelector((state) => state.user.user);
-
   return (
     <div className='wrapper'>
       <div className='container'>
@@ -18,7 +17,7 @@ export const ProfilePage = () => {
             <h3 className='main__title title'>Мои товары</h3>
           </div>
           <div className='main__content'>
-            <ContentCards />
+            {/* <ContentCards /> */}
           </div>
         </div>
        </main>

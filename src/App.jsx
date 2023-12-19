@@ -3,10 +3,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRoutes } from './routes/routes'
 import { Header } from './components/index'
-import { userLogin } from './store'
+import { userLogin, setAccessToken } from './store'
 
 import { useGetUserMutation } from './store'
-
 
 function App() {
   const dispatch = useDispatch()
@@ -14,8 +13,11 @@ function App() {
   const user = useSelector((state) => state.user.user)
   const [getUser] = useGetUserMutation()
 
+  // localStorage.clear()
+
   useEffect(() => {
-      getUser(localStorage.getItem('access_token')).then((res) => {
+    dispatch(setAccessToken(localStorage.getItem('access_token')))
+      getUser().then((res) => {
         if (res.error) {
           console.log(res.error.status)
         } else {
