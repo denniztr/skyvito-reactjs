@@ -1,24 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalComments } from '../../store';
-import { useGetCommentsMutation } from '../../store';
+import { useGetCommentsMutation, usePostCommentMutation } from '../../store';
 import { CommentList } from '../../components/index';
 
 import './comments.scss';
 
 export const CommentsModal = () => {
   const dispatch = useDispatch();
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([])
+  const [text, setText] = useState('')
   const user = useSelector((state) => state.user.user);
   const selected_ad = useSelector((state) => state.adv.selected_ad);
 
-  const [getComments] = useGetCommentsMutation();
+  const [getComments] = useGetCommentsMutation()
+  const [postComment] = usePostCommentMutation()
 
   useEffect(() => {
-    getComments(selected_ad.id).then((res) => {
-      setComments(res);
-    });
-  }, [getComments, selected_ad]);
+    loadComments()
+  }, [selected_ad]);
+
+  const loadComments = () => {
+    getComments(selected_ad.id).then((res) => {      
+      if (res.data) setComments(res);
+    }).catch((error) => console.log(error))
+  }
+
+  const handlePublishComment = async (event) => {
+    event.preventDefault()
+    postComment({ id: selected_ad.id, body: { text: text }}).then(() => {
+      loadComments()
+    }).catch((error) => console.log(error))
+  }
 
   return (
     <div className="modal-overlay">
@@ -40,21 +53,23 @@ export const CommentsModal = () => {
                   action="#"
                 >
                   <div className="form-newArt__block">
-                    <label htmlFor="text">Add a Review</label>
+                    <label htmlFor="text">Добавить отзыв</label>
                     <textarea
                       className="form-newArt__area"
                       name="text"
                       id="formArea"
                       cols="auto"
                       rows="5"
-                      placeholder="Enter your review"
+                      placeholder="Напишите отзыв"
+                      onChange={(e) => setText(e.target.value)}
                     ></textarea>
                   </div>
                   <button
                     className="form-newArt__btn-pub btn-hov02"
                     id="btnPublish"
+                    onClick={handlePublishComment}
                   >
-                    Publish
+                    Опубликовать
                   </button>
                 </form>
               ) : (
