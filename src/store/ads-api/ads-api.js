@@ -27,6 +27,15 @@ export const adsApi = createApi({
         }
       })
     }),
+    getComments: build.mutation({
+      query: (id) => ({
+        headers: {
+          'content-type': 'application/json'
+        },
+        url: `ads/${id}/comments`,
+        method: 'GET',
+      })
+    }),
     postReg: build.mutation({
       query: (body) => ({
         headers: {
@@ -102,4 +111,5 @@ export const {
   useGetAllUsersMutation,
   useUpdateTokenMutation,
   usePostAdvMutation,
+  useGetCommentsMutation,
 } = adsApi;

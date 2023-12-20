@@ -51,7 +51,7 @@ export const AdvCard = ({ data }) => {
           <div className='article__info'>
             <p className='article__date'>{selected_ad && selected_ad.created_on}</p>
             <p className='article__city'>{selected_ad && selected_ad.user.city}</p>
-            <a className='article__link' onClick={() => dispatch(setModalComments())}>23 отзыва</a>
+            <a className='article__link' onClick={() => dispatch(setModalComments())}>Отзывы</a>
           </div>
           <p className='article__price'>{selected_ad && selected_ad.price} ₽</p>
           <button className='article__btn btn-hov-02'>Показать телефон<span>{selected_ad && selected_ad.user.phone}</span></button>

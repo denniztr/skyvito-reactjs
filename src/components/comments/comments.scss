@@ -186,62 +186,62 @@
 
 
 
-.reviews {
+// .reviews {
 
-  &__review {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-  }
-}
+//   &__review {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       margin: 15px 0;
+//   }
+// }
 
-.review {
+// .review {
 
-  &__item {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: flex-start;
-  }
+//   &__item {
+//       display: flex;
+//       flex-direction: row;
+//       align-items: flex-start;
+//       justify-content: flex-start;
+//   }
 
-  &__left {
-      margin-right: 12px;
-  }
+//   &__left {
+//       margin-right: 12px;
+//   }
 
-  &__img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #F0F0F0;
+//   &__img {
+//       width: 40px;
+//       height: 40px;
+//       border-radius: 50%;
+//       background-color: #F0F0F0;
 
-      & img {
-          display: block;
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-      }
-  }
+//       & img {
+//           display: block;
+//           width: 100%;
+//           height: auto;
+//           object-fit: cover;
+//       }
+//   }
 
-  &__right {
-      display: block;
-  }
+//   &__right {
+//       display: block;
+//   }
 
-  &__name {
-      margin-bottom: 12px;
-      font-weight: 600;
+//   &__name {
+//       margin-bottom: 12px;
+//       font-weight: 600;
 
-      & span {
-          margin-left: 10px;
-          color: #5F5F5F;
-      }
-  }
+//       & span {
+//           margin-left: 10px;
+//           color: #5F5F5F;
+//       }
+//   }
 
-  &__title {
-      font-weight: 600;
-  }
+//   &__title {
+//       font-weight: 600;
+//   }
 
-}
+// }
 
 .font-t {
   font-size: 16px;
