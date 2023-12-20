@@ -7,6 +7,7 @@ const advSlice = createSlice({
     ads: null,
     selected_ad: '',
     modalAdv: false,
+    modalComments: false
   },
   reducers: {
     setAdv: (state, action) => {
@@ -17,10 +18,13 @@ const advSlice = createSlice({
     },
     setIsModal: (state) => {
       state.modalAdv = !state.modalAdv
-    }
+    },
+    setModalComments: (state) => {
+      state.modalComments = !state.modalComments
+    },
   }
 })
 
-export const { setAdv, setSelectedAdd, setIsModal } = advSlice.actions;
+export const { setAdv, setSelectedAdd, setIsModal, setModalComments } = advSlice.actions;
 
 export default advSlice.reducer;

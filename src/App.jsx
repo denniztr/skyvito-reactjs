@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRoutes } from './routes/routes'
 import { Header } from './components/index'
-import { NewAdModal } from './components/index'
+import { NewAdModal, CommentsModal } from './components/index'
 import { userLogin, setAccessToken } from './store'
 
 import { useUpdateTokenMutation } from './store/ads-api'
@@ -13,6 +13,9 @@ function App() {
 
   const user = useSelector((state) => state.user.user)
   const modalAdv = useSelector((state) => state.adv.modalAdv)
+  const modalComments = useSelector((state) => state.adv.modalComments)
+  console.log("🚀 ~ file: App.jsx:17 ~ App ~ modalComments:", modalComments)
+  
   // localStorage.clear()
 
   useEffect(() => {
@@ -39,6 +42,7 @@ function App() {
       <BrowserRouter>
         <Header user={user}/>
         { modalAdv ? <NewAdModal /> : null }
+        { modalComments ? <CommentsModal /> : null }
         <AppRoutes />
       </BrowserRouter>
   );
