@@ -13,6 +13,20 @@ export const adsApi = createApi({
     getAds: build.query({
       query: () => 'ads',
     }),
+    postAdv: build.mutation({
+      query: (body) => ({
+        headers: {
+          'content-type': 'application/json'
+        },
+        url: '/adstext',
+        method: 'POST',
+        body: {
+          title: body.title,
+          description: body.description,
+          price: body.price,
+        }
+      })
+    }),
     postReg: build.mutation({
       query: (body) => ({
         headers: {
@@ -51,27 +65,23 @@ export const adsApi = createApi({
         method: 'GET',
       })
     }),
-    // updateToken: build.mutation({
-    //   query: (body) => ({
-    //     headers: {
-    //       'content-type': 'application/json',
-    //       // Authorization: `Bearer ${body.access_token}`,
-    //     },
-    //     url: '/auth/login',
-    //     method: 'PUT',
-    //     body: JSON.stringify({
-    //       access_token: body.access_token,
-    //       refresh_token: body.refresh_token,
-    //     }),
-    //   })
-    // }),
+    updateToken: build.mutation({
+      query: (body) => ({
+        headers: {
+          'content-type': 'application/json',
+        },
+        url: '/auth/login',
+        method: 'PUT',
+        body: JSON.stringify({
+          access_token: body.access_token,
+          refresh_token: body.refresh_token,
+        }),
+      })
+    }),
     getUser: build.mutation({
       query: () => ({
         url: "/user",
         method: `GET`,
-        // headers: {
-        //   Authorization: `Bearer ${body}`,
-        // },
       }),
     }),
     getAllUsers: build.mutation({
@@ -79,7 +89,7 @@ export const adsApi = createApi({
         url: "/user/all",
         method: 'GET',
       })
-    })
+    }),
   }),
 })
 
@@ -90,4 +100,6 @@ export const {
   useGetUserMutation,
   useGetAddByIdMutation,
   useGetAllUsersMutation,
+  useUpdateTokenMutation,
+  usePostAdvMutation,
 } = adsApi;

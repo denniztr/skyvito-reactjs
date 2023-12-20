@@ -1,13 +1,17 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { setIsModal } from '../../store/index'
 import './header.scss'
 
 export const Header = ({ user }) => {
+  const dispatch = useDispatch()
+  
   return (
     <header className='header'>
         { user ? (
           <nav className='header__nav'>
-            <button className="header__btn-putAd btn-hov01" id="btputAd">
+            <button className="header__btn-putAd btn-hov01" id="btputAd" onClick={() => dispatch(setIsModal())}>
               Разместить объявление
             </button>
             <Link to='/profile'>

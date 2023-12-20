@@ -1,9 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { setAdv } from '../../store/slice/adv-slice'
-
-import { useGetAdsQuery, useGetAddByIdMutation } from '../../store'
+import { useGetAddByIdMutation } from '../../store'
 
 import './content-cards.scss'
 
@@ -30,6 +27,7 @@ export const ContentCards = ({ data, isLoading }) => {
             // to={`/adv/${card.id}`}
             >
               <div className='card__image'>
+                <img src='' alt="card" />
                 {/* <a href='#' target='_blank'></a> */}
               </div>
             </Link>

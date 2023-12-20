@@ -58,7 +58,7 @@ export const MainPage = () => {
           <div className='main__container'>
             <h2 className='main__h2'>Объявления</h2>
             <div className='main__content'>
-              <ContentCards data={filteredData || data} isLoading={isLoading} searchQuery={searchQuery}/>
+              <ContentCards data={filteredData || data} isLoading={isLoading} />
             </div>
           </div>
         </main>

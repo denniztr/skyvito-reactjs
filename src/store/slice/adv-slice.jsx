@@ -6,18 +6,21 @@ const advSlice = createSlice({
   initialState: {
     ads: null,
     selected_ad: '',
+    modalAdv: false,
   },
   reducers: {
     setAdv: (state, action) => {
       state.ads = action.payload
-      // console.log(state.ads)
     },
     setSelectedAdd: (state, action) => {
       state.selected_ad = action.payload
+    },
+    setIsModal: (state) => {
+      state.modalAdv = !state.modalAdv
     }
   }
 })
 
-export const { setAdv, setSelectedAdd } = advSlice.actions;
+export const { setAdv, setSelectedAdd, setIsModal } = advSlice.actions;
 
 export default advSlice.reducer;

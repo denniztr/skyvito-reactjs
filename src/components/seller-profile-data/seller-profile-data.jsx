@@ -3,7 +3,7 @@
 import './seller-profile-data.scss'
 
 export const SellerProfileData = ({ seller }) => {
-  console.log(seller)
+  seller && console.log("🚀 ~ file: seller-profile-data.jsx:6 ~ SellerProfileData ~ seller:", seller)
   return (
     <>
       <h2 className='main__h2'>Профиль продавца</h2>

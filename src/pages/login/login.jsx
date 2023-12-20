@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { usePostLoginMutation, setAccessToken } from '../../store'
+import { userLogin } from '../../store'
+import { usePostLoginMutation, useGetUserMutation, setAccessToken } from '../../store'
 
 import SkyproLogoModal from '../../assets/icons/logo_modal.png'
 
@@ -17,19 +17,22 @@ export const Login = () => {
   const [error, setError] = useState('')
 
   const [login] = usePostLoginMutation()
+  const [getToken] = useGetUserMutation()
 
   const handleLogin = async () => {
     if (!email || !password) {
       setError('Не заполнены данные для входа')
     }
 
-    const res = await login({ email, password })
-
-    if (res.data) {
+    await login({ email, password }).then((res) => {
       dispatch(setAccessToken(res.data.access_token))
       localStorage.setItem('refresh_token', res.data.refresh_token)
-      navigate('/')
-    }
+    }).then(() => {
+      getToken().then((res) => {
+        dispatch(userLogin(res.data))
+        navigate('/')
+      })
+    })
   }
 
   return (
