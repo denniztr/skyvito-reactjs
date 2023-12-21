@@ -16,8 +16,9 @@ export const ContentCards = ({ data, isLoading }) => {
     )
   }
 
-  const adv_images = useSelector((state) => state.adv.images)
+  // const adv_images = useSelector((state) => state.adv.images)
 
+ 
 
   return (
     <div className='content__cards cards'>

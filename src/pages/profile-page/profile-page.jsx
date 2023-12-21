@@ -10,6 +10,7 @@ import './profile-page.scss'
 export const ProfilePage = () => {
 
   const user = useSelector((state) => state.user.user);
+  
   return (
     <div className='wrapper'>
       <div className='container'>

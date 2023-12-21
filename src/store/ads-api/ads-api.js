@@ -33,6 +33,20 @@ export const adsApi = createApi({
         method: 'DELETE',
       })
     }),
+    patchAdv: build.mutation({
+      query: ({ id, body }) => ({
+        headers: {
+          'content-type': 'application/json'
+        },
+        url: `ads/${id}`,
+        method: 'PATCH',
+        body: {
+          title: body.title,
+          description: body.description,
+          price: body.price,
+        }
+      })
+    }),
     postComment: build.mutation({
       query: ({id, body}) => ({
         headers: {
@@ -117,6 +131,22 @@ export const adsApi = createApi({
         method: `GET`,
       }),
     }),
+    patchUser: build.mutation({
+      query: (body) => ({
+        headers: {
+          'content-type': 'application/json'
+        },
+        url: '/user',
+        method: `PATCH`,
+        body: JSON.stringify({
+          email: body.email,
+          name: body.name,
+          surname: body.surname,
+          city: body.city,
+          phone: body.phone,
+        })
+      })
+    }),
     getAllUsers: build.mutation({
       query: () => ({
         url: "/user/all",
@@ -139,4 +169,6 @@ export const {
   usePostCommentMutation,
   useGetImagesMutation,
   useDeleteAdvMutation,
+  usePatchAdvMutation,
+  usePatchUserMutation,
 } = adsApi;

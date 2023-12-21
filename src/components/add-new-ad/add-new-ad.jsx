@@ -1,39 +1,79 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsModal } from '../../store';
-import { usePostAdvMutation } from '../../store';
-
+import { usePostAdvMutation, usePatchAdvMutation } from '../../store';
 
 import './add-new-ad.scss';
 
 export const NewAdModal = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [postAdv] = usePostAdvMutation()
+  const user = useSelector((state) => state.user.user);
+  const selected_ad = useSelector((state) => state.adv.selected_ad);
 
-  const [title, setTitle] = useState(null)
-  const [description, setDescription] = useState(null)
-  const [price, setPrice] = useState(null)
- 
-  const handlePostAdv = (event) => {
-    event.preventDefault()
-    postAdv({ title, description, price }).then((res) => {
-    if (res.data) {
-      console.log(res.data)
-    } else {
-      console.log(res.error)
+  const [postAdv] = usePostAdvMutation();
+  const [patchAdv] = usePatchAdvMutation();
+
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [price, setPrice] = useState(null);
+
+  const [newTitle, setNewTitle] = useState()
+  const [newDescription, setNewDescription] = useState()
+  const [newPrice, setNewPrice] = useState()
+
+  useEffect(() => {
+    if (selected_ad.user_id === user.id) {
+      setNewTitle(selected_ad.title)
+      setNewDescription(selected_ad.description)
+      setNewPrice(selected_ad.price)
     }
+  }, [selected_ad.description, selected_ad.price, selected_ad.title, selected_ad.user_id, user.id])
+
+  console.log(newTitle)
+  console.log(newDescription)
+  console.log(newPrice)
+
+  const handlePostAdv = (event) => {
+    event.preventDefault();
+    postAdv({ title, description, price }).then((res) => {
+      if (res.data) {
+        console.log(res.data);
+      } else {
+        console.log(res.error);
+      }
     });
-  }
+  };
+
+
+  const handlePatchAdvClick = (event) => {
+    event.preventDefault()
+    patchAdv({
+      id: selected_ad.id,
+      body: {
+        title: newTitle,
+        description: newDescription,
+        price: newPrice,
+      },
+    }).then((res) => console.log(res))
+      .catch((error) => console.log(error))
+  };
 
   return (
     <div className="modal-overlay">
       <div className="container-bg">
         <div className="modal__block">
           <div className="modal__content">
-            <h3 className="modal__title">Новое объявление</h3>
+            {selected_ad.user_id === user.id ? (
+              <h3 className="modal__title">Редактировать объявление</h3>
+            ) : (
+              <h3 className="modal__title">Новое объявление</h3>
+            )}
             <div className="modal__btn-close">
-              <div className="modal__btn-close-line" onClick={() => dispatch(setIsModal(false))}></div>
+              <div
+                className="modal__btn-close-line"
+                onClick={() => dispatch(setIsModal(false))}
+              ></div>
             </div>
             <form
               className="modal__form-newArt form-newArt"
@@ -48,7 +88,8 @@ export const NewAdModal = () => {
                   name="name"
                   id="formName"
                   placeholder="Введите название"
-                  onChange={(e) => setTitle(e.target.value)}
+                  defaultValue={selected_ad.user_id === user.id ? newTitle : ''}
+                  onChange={(e) => selected_ad.user_id === user.id ? setNewTitle(e.target.value) : setTitle(e.target.value)}
                 />
               </div>
               <div className="form-newArt__block">
@@ -60,7 +101,8 @@ export const NewAdModal = () => {
                   cols="auto"
                   rows="10"
                   placeholder="Введите описание"
-                  onChange={(e) => setDescription(e.target.value)}
+                  defaultValue={selected_ad.user_id === user.id ? newDescription : ''}
+                  onChange={(e) => selected_ad.user_id === user.id ? setNewDescription(e.target.value) : setDescription(e.target.value)}
                 ></textarea>
               </div>
               <div className="form-newArt__block">
@@ -97,17 +139,28 @@ export const NewAdModal = () => {
                   type="text"
                   name="price"
                   id="formName"
-                  onChange={(e) => setPrice(e.target.value)}
+                  defaultValue={selected_ad.user_id === user.id ? newPrice : ''}
+                  onChange={(e) => selected_ad.user_id === user.id ? setNewPrice(e.target.value) : setPrice(e.target.value)}
                 />
                 <div className="form-newArt__input-price-cover"></div>
               </div>
-              <button
-                className="form-newArt__btn-pub btn-hov02"
-                id="btnPublish"
-                onClick={handlePostAdv}
-              >
-                Опубликовать
-              </button>
+              {selected_ad.user_id === user.id ? (
+                <button
+                  className="form-newArt__btn-pub btn-hov02"
+                  id="btnPublish"
+                  onClick={handlePatchAdvClick}
+                >
+                  Сохранить изменения
+                </button>
+              ) : (
+                <button
+                  className="form-newArt__btn-pub btn-hov02"
+                  id="btnPublish"
+                  onClick={handlePostAdv}
+                >
+                  Опубликовать
+                </button>
+              )}
             </form>
           </div>
         </div>
