@@ -2,7 +2,8 @@
 
 import './seller-profile-data.scss'
 
-export const SellerProfileData = () => {
+export const SellerProfileData = ({ seller }) => {
+  seller && console.log("🚀 ~ file: seller-profile-data.jsx:6 ~ SellerProfileData ~ seller:", seller)
   return (
     <>
       <h2 className='main__h2'>Профиль продавца</h2>
@@ -12,14 +13,14 @@ export const SellerProfileData = () => {
             <div className='seller__left'>
               <div className='seller__img'>
                 <a href="" target='_self'>
-                  <img src="" alt="" />
+                  <img src={seller && seller.avatar} alt="" />
                 </a>
               </div>
             </div>
             <div className='seller__right'>
-              <h3 className='seller__title'>Кирилл Матвеев</h3>
-              <p className='seller__city'>Санкт-Петербург</p>
-              <p className='seller__inf'>Продаёт товары с августа 2021</p>
+              <h3 className='seller__title'>{seller && seller.name}</h3>
+              <p className='seller__city'>{seller && seller.city}</p>
+              <p className='seller__inf'>{seller && seller.sells_from}</p>
               <div className='seller__img-mob-block'>
                 <div className='seller__img-mob'>
                   <a href="" target='_self'>
@@ -27,7 +28,7 @@ export const SellerProfileData = () => {
                   </a>
                 </div>
               </div>
-              <button className='seller__btn btn-hov02'>Показать телефон<span>8 905 XXX XX XX</span></button>
+              <button className='seller__btn btn-hov02'>Показать телефон<span>{seller && seller.phone}</span></button>
             </div>
           </div>
         </div>
