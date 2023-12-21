@@ -1,17 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useGetAdsQuery } from '../../store'
+import { useGetAdsQuery, useGetImagesMutation } from '../../store'
 import { ContentCards } from '../../components/index'
 import SkyProLogo from '../../assets/icons/logo.png'
-import { setAdv } from '../../store'
+import { setAdv, setImages } from '../../store'
 
 import './main-page.scss'
 
 export const MainPage = () => {
   const dispatch = useDispatch()
   
-  const { data, isLoading } = useGetAdsQuery();
+  const { data, isLoading } = useGetAdsQuery()
   if (data) dispatch(setAdv({data}))
+
+  const [getImages] = useGetImagesMutation()
+
+  useEffect(() => {
+    getImages().then((res) => res && dispatch(setImages(res.data)))
+  }, [])
 
   const [searchQuery, setSearchQuery] = useState('')
   const [filteredData, setFilteredData] = useState(null)

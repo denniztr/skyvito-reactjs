@@ -27,6 +27,12 @@ export const adsApi = createApi({
         }
       })
     }),
+    deleteAdv: build.mutation({
+      query: (id) => ({
+        url: `ads/${id}`,
+        method: 'DELETE',
+      })
+    }),
     postComment: build.mutation({
       query: ({id, body}) => ({
         headers: {
@@ -45,6 +51,12 @@ export const adsApi = createApi({
           'content-type': 'application/json'
         },
         url: `ads/${id}/comments`,
+        method: 'GET',
+      })
+    }),
+    getImages: build.mutation({
+      query: () => ({
+        url: 'images',
         method: 'GET',
       })
     }),
@@ -125,4 +137,6 @@ export const {
   usePostAdvMutation,
   useGetCommentsMutation,
   usePostCommentMutation,
+  useGetImagesMutation,
+  useDeleteAdvMutation,
 } = adsApi;

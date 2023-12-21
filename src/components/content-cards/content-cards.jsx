@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link, useNavigate } from 'react-router-dom'
 import { useGetAddByIdMutation } from '../../store'
+import { useSelector } from 'react-redux'
 
 import './content-cards.scss'
 
@@ -14,6 +15,9 @@ export const ContentCards = ({ data, isLoading }) => {
       navigate(`/adv/${res.data.id}`)
     )
   }
+
+  const adv_images = useSelector((state) => state.adv.images)
+
 
   return (
     <div className='content__cards cards'>

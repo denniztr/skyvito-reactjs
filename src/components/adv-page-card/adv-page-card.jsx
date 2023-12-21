@@ -3,13 +3,17 @@ import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setSelectedAdd, setModalComments } from '../../store'
+import { useDeleteAdvMutation } from '../../store'
 
 import './adv-page-card.scss'
 
 export const AdvCard = ({ data }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const { id } = useParams()
+
+  const [deleteAdv] = useDeleteAdvMutation()
 
   useEffect(() => {
     if (data) {
@@ -24,6 +28,16 @@ export const AdvCard = ({ data }) => {
     navigate(`/seller/${selected_ad.user.id}`)
   }
   
+  const user = useSelector((state) => state.user.user)
+
+  const handleDeleteAdvClick = () => {
+    deleteAdv(selected_ad.id).then(() => {
+      navigate('/')
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
   return (
     <div className='artic__content article'>
       <div className='article__left'>
@@ -54,7 +68,14 @@ export const AdvCard = ({ data }) => {
             <a className='article__link' onClick={() => dispatch(setModalComments())}>Отзывы</a>
           </div>
           <p className='article__price'>{selected_ad && selected_ad.price} ₽</p>
-          <button className='article__btn btn-hov-02'>Показать телефон<span>{selected_ad && selected_ad.user.phone}</span></button>
+          { user && selected_ad.user_id ===  user.id ? ( 
+            <div>
+              <button className='article__btn btn-hov-02'>Редактировать</button>
+              <button className='article__btn btn-hov-02' onClick={handleDeleteAdvClick}>Снять с публикации</button>
+            </div>
+          ) : (
+            <button className='article__btn btn-hov-02'>Показать телефон<span>{selected_ad && selected_ad.user.phone}</span></button>
+          ) }
           <div className='article__author author' onClick={handleClickUserProfile}>
             <div className='author__img'>
               <img src={selected_ad && selected_ad.user.avatar} alt="" />

@@ -73,7 +73,7 @@ export const CommentsModal = () => {
                   </button>
                 </form>
               ) : (
-                <p style={{ color: 'gray' }}>
+                <p style={{ 'color': 'gray', 'paddingBottom': '30px'}}>
                   Авторизуйтесь чтобы оставить комментарий
                 </p>
               )}
