@@ -113,16 +113,16 @@ export const adsApi = createApi({
       })
     }),
     updateToken: build.mutation({
-      query: (body) => ({
+      query: ({ access_token, refresh_token }) => ({
         headers: {
           'content-type': 'application/json',
         },
-        url: '/auth/login',
+        url: 'auth/login',
         method: 'PUT',
-        body: JSON.stringify({
-          access_token: body.access_token,
-          refresh_token: body.refresh_token,
-        }),
+        body: {
+          access_token: access_token,
+          refresh_token: refresh_token,
+        },
       })
     }),
     getUser: build.mutation({
@@ -139,7 +139,7 @@ export const adsApi = createApi({
         url: '/user',
         method: `PATCH`,
         body: JSON.stringify({
-          email: body.email,
+          // email: body.email,
           name: body.name,
           surname: body.surname,
           city: body.city,

@@ -1,21 +1,27 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { usePatchUserMutation, useGetUserMutation } from '../../store';
+import { useDispatch } from 'react-redux'; 
+import { userLogin } from '../../store';
 
 import './profile-setup.scss';
 
 export const ProfileSetup = ({ user }) => {
-  const [email, setEmail] = useState('');
+  const dispatch = useDispatch()
+  
   const [name, setName] = useState();
   const [surname, setSurname] = useState();
   const [city, setCity] = useState();
   const [phone, setPhone] = useState('');
 
   const [patchUser] = usePatchUserMutation();
- 
+  const [getUser] = useGetUserMutation()
+
   const handlePatchUserClick = async (event) => {
     event.preventDefault()
-    patchUser({ email, name, surname, city, phone}).then((res) => console.log(res))
+    patchUser({ name, surname, city, phone}).then((res) => {
+      dispatch(userLogin({ user: res.data }))
+    })
   };
 
   return (

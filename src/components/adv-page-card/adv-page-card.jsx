@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedAdd, setModalComments, setIsModal } from '../../store';
-import { useDeleteAdvMutation } from '../../store';
+import { useDeleteAdvMutation, useGetImagesMutation } from '../../store';
 
 import './adv-page-card.scss';
 
@@ -14,6 +14,9 @@ export const AdvCard = ({ data }) => {
   const { id } = useParams();
 
   const [deleteAdv] = useDeleteAdvMutation();
+  const [getImages] = useGetImagesMutation();
+
+  const selected_ad = useSelector((state) => state.adv.selected_ad);
 
   useEffect(() => {
     if (data) {
@@ -22,7 +25,18 @@ export const AdvCard = ({ data }) => {
     }
   }, [data, dispatch, id]);
 
-  const selected_ad = useSelector((state) => state.adv.selected_ad);
+  const [adImages, setAdImages] = useState(null)
+
+  useEffect(() => {
+      console.log(selected_ad.id)
+      getImages().then((res) => {
+        console.log("🚀 ~ file: adv-page-card.jsx:33 ~ getImages ~ res:", res)
+        const images = res.data.find((ad) => ad.ad_id === selected_ad.id)
+        setAdImages(images)
+      })
+  }, [getImages, selected_ad, selected_ad.id])
+
+  console.log(adImages)
 
   const handleClickUserProfile = () => {
     navigate(`/seller/${selected_ad.user.id}`);

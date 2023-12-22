@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux'
 import { useGetAdsQuery, useGetImagesMutation } from '../../store'
 import { ContentCards } from '../../components/index'
 import SkyProLogo from '../../assets/icons/logo.png'
-import { setAdv, setImages } from '../../store'
+import SkyProLogoMob from '../../assets/icons/logo-mob.png'
+import { setAdv } from '../../store'
 
 import './main-page.scss'
 
@@ -13,11 +14,11 @@ export const MainPage = () => {
   const { data, isLoading } = useGetAdsQuery()
   if (data) dispatch(setAdv({data}))
 
-  const [getImages] = useGetImagesMutation()
+  // const [getImages] = useGetImagesMutation()
 
-  useEffect(() => {
-    getImages().then((res) => res && dispatch(setImages(res.data)))
-  }, [])
+  // useEffect(() => {
+  //   getImages().then((res) => res && dispatch(setImages(res.data)))
+  // }, [])
 
   const [searchQuery, setSearchQuery] = useState('')
   const [filteredData, setFilteredData] = useState(null)
@@ -40,7 +41,7 @@ export const MainPage = () => {
             <a className="search__logo-mob-link" href="#" target="_blank">
               <img
                 className="search__logo-mob-img"
-                src="img/logo-mob.png"
+                src={SkyProLogoMob}
                 alt="logo"
               />
             </a>

@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRoutes } from './routes/routes'
-import { Header } from './components/index'
+import { Header, Footer } from './components/index'
 import { NewAdModal, CommentsModal } from './components/index'
 import { userLogin, setAccessToken } from './store'
-
-import { useUpdateTokenMutation } from './store/ads-api'
+import { useUpdateTokenMutation, useGetUserMutation } from './store/ads-api'
 
 function App() {
   const dispatch = useDispatch()
@@ -14,28 +13,24 @@ function App() {
   const user = useSelector((state) => state.user.user)
   const modalAdv = useSelector((state) => state.adv.modalAdv)
   const modalComments = useSelector((state) => state.adv.modalComments)
-  console.log("🚀 ~ file: App.jsx:17 ~ App ~ modalComments:", modalComments)
-  
-  // localStorage.clear()
+  const access_token = localStorage.getItem('access_token')
+  const refresh_token = localStorage.getItem('refresh_token')
+
+  const [updateToken] = useUpdateTokenMutation()
+  const [getUser] = useGetUserMutation()
 
   useEffect(() => {
-    // const fetch_token = async () => {
-    //   try {
-    //     await updateToken({
-    //       access_token: localStorage.getItem('access_token'),
-    //       refresh_token: localStorage.getItem('refresh_token')
-    //     }).unwrap()
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // fetch_token()
-    // try {
-    //   const payload = await addPost({ id: 1, name: 'Example' }).unwrap();
-    //   console.log('fulfilled', payload)
-    // } catch (error) {
-    //   console.error('rejected', error);
-    // }
+    dispatch(setAccessToken(access_token))
+    updateToken({ access_token, refresh_token }).then((res) => {
+      if (res.data) {
+        dispatch(setAccessToken(res.data.access_token))
+        localStorage.setItem('refresh_token', res.data.refresh_token)
+      }
+    }).then(() => getUser().then((res) => dispatch(userLogin(res.data))))
+    // const access_token = localStorage.getItem('access_token')
+    // dispatch(setAccessToken(access_token))
+    // const refresh_token = localStorage.getItem('refresh_token')
+    // console.log(refresh_token)
   }, [])
 
   return (
@@ -44,6 +39,7 @@ function App() {
         { modalAdv ? <NewAdModal /> : null }
         { modalComments ? <CommentsModal /> : null }
         <AppRoutes />
+        <Footer />
       </BrowserRouter>
   );
 }

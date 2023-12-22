@@ -23,12 +23,13 @@ export const NewAdModal = () => {
   const [newPrice, setNewPrice] = useState()
 
   useEffect(() => {
+    console.log(selected_ad)
     if (selected_ad.user_id === user.id) {
       setNewTitle(selected_ad.title)
       setNewDescription(selected_ad.description)
       setNewPrice(selected_ad.price)
     }
-  }, [selected_ad.description, selected_ad.price, selected_ad.title, selected_ad.user_id, user.id])
+  }, [selected_ad, selected_ad.description, selected_ad.price, selected_ad.title, selected_ad.user_id, user.id])
 
   console.log(newTitle)
   console.log(newDescription)

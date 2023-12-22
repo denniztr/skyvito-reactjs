@@ -9,11 +9,11 @@ import SkyproLogoModal from '../../assets/icons/logo_modal.png'
 import './register.scss';
 
 export const Register = () => {
-  // const dispatch = useDispatch()
-  // const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [postReg] = usePostRegMutation()
-  // const [postLogin] = usePostLoginMutation()
+  const [getToken] = usePostLoginMutation()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,7 +24,8 @@ export const Register = () => {
   // const [number, setNumber] = useState('')
   const [error, setError] = useState('')
 
-  const handleRegister = () => {
+  const handleRegister = (event) => {
+    event.preventDefault()
     if (!email || !password) {
       setError("Укажите email/пароль");
       return;
@@ -45,15 +46,8 @@ export const Register = () => {
        return;
     }
     
-    postReg({ email, password, name, surname, city }).then((res) => {
-      console.log(res)
-      // navigate('/login')
-      // dispatch(userLogin({user: res.data}))
-      // postLogin({ email, password }).then((res) => {
-      //   localStorage.setItem('refresh_token', res.data.refresh_token)
-      //   dispatch(setAccessToken(res.data.access_token))
-      //   navigate('/profile')
-      // })
+    postReg({ email, password, name, surname, city }).then(() => {
+      navigate('/login')
     })
   }
 
