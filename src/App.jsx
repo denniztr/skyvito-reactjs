@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRoutes } from './routes/routes'
@@ -27,10 +27,6 @@ function App() {
         localStorage.setItem('refresh_token', res.data.refresh_token)
       }
     }).then(() => getUser().then((res) => dispatch(userLogin(res.data))))
-    // const access_token = localStorage.getItem('access_token')
-    // dispatch(setAccessToken(access_token))
-    // const refresh_token = localStorage.getItem('refresh_token')
-    // console.log(refresh_token)
   }, [])
 
   return (
