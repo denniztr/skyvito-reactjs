@@ -1,0 +1,18 @@
+.main {
+  &__artic {
+    max-width: 1178px;
+    padding: 0 0 70px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    &__artic {
+      max-width: 1178px;
+      width: 100%;
+      padding: 55px 0 0px;
+      margin: 0 auto;
+    }
+  }
+}

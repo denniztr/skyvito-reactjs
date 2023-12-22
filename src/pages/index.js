@@ -1,0 +1,6 @@
+export * from './main-page'
+export * from './profile-page'
+export * from './adv-page'
+export * from './seller-profile-page'
+export * from './register'
+export * from './login'
