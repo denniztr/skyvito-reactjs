@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsModal } from '../../store';
-import { usePostAdvMutation, usePatchAdvMutation } from '../../store';
+import { usePostAdvMutation, usePatchAdvMutation, usePostImageMutation } from '../../store';
 
 import './add-new-ad.scss';
 
@@ -13,10 +13,13 @@ export const NewAdModal = () => {
 
   const [postAdv] = usePostAdvMutation();
   const [patchAdv] = usePatchAdvMutation();
+  const [postImg] = usePostImageMutation();
 
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [price, setPrice] = useState(null);
+  const [image, setImage] = useState('');
+  image && console.log("🚀 ~ file: add-new-ad.jsx:22 ~ NewAdModal ~ image:", image)
 
   const [newTitle, setNewTitle] = useState()
   const [newDescription, setNewDescription] = useState()
@@ -31,10 +34,6 @@ export const NewAdModal = () => {
     }
   }, [selected_ad, selected_ad.description, selected_ad.price, selected_ad.title, selected_ad.user_id, user.id])
 
-  console.log(newTitle)
-  console.log(newDescription)
-  console.log(newPrice)
-
   const handlePostAdv = (event) => {
     event.preventDefault();
     postAdv({ title, description, price }).then((res) => {
@@ -43,7 +42,7 @@ export const NewAdModal = () => {
       } else {
         console.log(res.error);
       }
-    });
+    })
   };
 
 
@@ -59,6 +58,10 @@ export const NewAdModal = () => {
     }).then((res) => console.log(res))
       .catch((error) => console.log(error))
   };
+
+  const handleImgUpload = () => {
+    postImg({ id: selected_ad.id, image: image}).then((res) => console.log(res))
+  }
 
   return (
     <div className="modal-overlay">
@@ -111,15 +114,24 @@ export const NewAdModal = () => {
                   Фотографии товара<span>не более 5 фотографий</span>
                 </p>
                 <div className="form-newArt__bar-img">
+                  
                   <div className="form-newArt__img">
+                    <img src="" alt="" />
+                    <div className="form-newArt__img-cover" type='file'>
+                      <input 
+                        type="file" 
+                        id='upload_photo'
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files?.[0])} 
+                        />
+                    </div>
+                  </div>
+
+                  {/* <div className="form-newArt__img">
                     <img src="" alt="" />
                     <div className="form-newArt__img-cover"></div>
                   </div>
                   <div className="form-newArt__img">
-                    <img src="" alt="" />
-                    <div className="form-newArt__img-cover"></div>
-                  </div>
-                  <div className="form-newArt__img">
                     <div className="form-newArt__img-cover"></div>
                     <img src="" alt="" />
                   </div>
@@ -130,7 +142,8 @@ export const NewAdModal = () => {
                   <div className="form-newArt__img">
                     <div className="form-newArt__img-cover"></div>
                     <img src="" alt="" />
-                  </div>
+                  </div> */}
+                  
                 </div>
               </div>
               <div className="form-newArt__block block-price">

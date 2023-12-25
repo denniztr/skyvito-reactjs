@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { usePatchUserMutation, useGetUserMutation } from '../../store';
+import { usePatchUserMutation, useGetUserMutation, usePostUserAvatarMutation } from '../../store';
 import { useDispatch } from 'react-redux'; 
 import { userLogin } from '../../store';
 
 import './profile-setup.scss';
+
 
 export const ProfileSetup = ({ user }) => {
   const dispatch = useDispatch()
@@ -14,8 +15,11 @@ export const ProfileSetup = ({ user }) => {
   const [city, setCity] = useState();
   const [phone, setPhone] = useState('');
 
-  const [patchUser] = usePatchUserMutation();
+  const [profileImage, setProfileImage] = useState(null);
+
+  const [patchUser] = usePatchUserMutation()
   const [getUser] = useGetUserMutation()
+  const [postAvatar] = usePostUserAvatarMutation()
 
   const handlePatchUserClick = async (event) => {
     event.preventDefault()
@@ -24,6 +28,18 @@ export const ProfileSetup = ({ user }) => {
     })
   };
 
+  const handleAvatarUpload = (file) => {
+    const formData = new FormData()
+    if (file) {
+      formData.append('file', file);
+      postAvatar(formData).then((data) => console.log(data))
+    }
+  }
+
+  const handleSaveProfileAvatar = () => {
+    getUser().then((res) => setProfileImage(res.data.avatar))
+  }
+  console.log(profileImage)
   return (
     <>
       {user ? (
@@ -36,10 +52,23 @@ export const ProfileSetup = ({ user }) => {
                 <div className="settings__left">
                   <div className="settings__img">
                     <a href="#" target="_self">
-                      <img src="#" alt="" />
+                      {/* {profileImage ? (<img src={profileImage} alt="" />) : (<img src="#" alt="" /> ) } */}
+                      <img src={`http://localhost:8090/${user.avatar}`} alt="" />
                     </a>
                   </div>
-                  <a className="settings__change-photo" href="" target="_self">
+                  <input 
+                    type="file" 
+                    id='file-upload' 
+                    onChange={(event) => {
+                      event.preventDefault()
+                      const file = event.target.files?.[0];
+                      if (file) {
+                        setProfileImage(file)
+                        handleAvatarUpload(file)
+                      }
+                    }} 
+                  />
+                  <a className="settings__change-photo" target="_self" onClick={handleSaveProfileAvatar}>
                     Заменить
                   </a>
                 </div>

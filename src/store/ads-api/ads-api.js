@@ -147,11 +147,30 @@ export const adsApi = createApi({
         })
       })
     }),
+    postUserAvatar: build.mutation({
+      query: (formData) => ({
+        url: 'user/avatar',
+        method: 'POST',
+        body: formData,
+      }),
+    }),
     getAllUsers: build.mutation({
       query: () => ({
         url: "/user/all",
         method: 'GET',
       })
+    }),
+    postImage: build.mutation({
+      query: ({ id, image}) => ({
+        headers: {
+          'content-type': 'application/json'
+        },
+        url: `ads/${id}/image`,
+        method: 'POST',
+        body: {
+          body: image,
+        }
+      }),
     }),
   }),
 })
@@ -171,4 +190,6 @@ export const {
   useDeleteAdvMutation,
   usePatchAdvMutation,
   usePatchUserMutation,
+  usePostImageMutation,
+  usePostUserAvatarMutation,
 } = adsApi;

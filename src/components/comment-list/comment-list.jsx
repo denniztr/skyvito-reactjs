@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 
+import { useSelector } from 'react-redux';
 import './comment-list.scss';
 
 export const CommentList = ({ comments }) => {
+  const user = useSelector((state) => state.user.user);
   return (
     <div className="modal__reviews reviews">
       <div className="reviews__review review">
@@ -11,7 +13,7 @@ export const CommentList = ({ comments }) => {
             <div className="review__item" key={comment && comment.id}>
               <div className="review__left">
                 <div className="review__img">
-                  <img src="" alt="" />
+                  <img src={`http://localhost:8090/${user.avatar}`} alt="" />
                 </div>
               </div>
               <div className="review__right">
